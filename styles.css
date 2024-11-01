@@ -1,0 +1,243 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #75BFFE; /* Couleur de fond du header */
+}
+
+header .logo {
+    height: 75px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #333; /* Couleur du texte du menu */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #ff6700; /* Couleur au survol */
+}
+
+/* Bouton d'appel à l'action */
+.cta-button {
+    background-color: #75BFFE;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #75BFFE;
+}
+
+/* Sections générales */
+section {
+    padding: 40px;
+    margin: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1, h2 {
+    color: #1a1a2e;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #75BFFE; /* Couleur de fond du footer */
+    color: #333;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Formulaire de contact */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin: 10px 0 5px;
+}
+
+form input, form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #75BFFE;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+form button:hover {
+    background-color: #75BFFE;
+}
+
+/* Section "à propos" - Portraits */
+.portrait-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.portrait {
+    text-align: center;
+}
+
+.portrait img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.portrait img:hover {
+    transform: scale(1.05);
+}
+
+.portrait p {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.site-title {
+    margin-left: 15px; /* Espacement à gauche du titre */
+    font-size: 24px; /* Taille de la police du titre */
+    color: #333; /* Couleur du texte du titre */
+    font-weight: bold; /* Mettre le titre en gras */
+    align-self: center; /* Centrer verticalement avec le logo */
+}
+
+/* Section des services */
+#services {
+    padding: 40px;
+    background-color: #fff;
+}
+
+.service {
+    display: flex; /* Aligne l'image et le texte côte à côte */
+    align-items: center; /* Centre verticalement l'image et le texte */
+    gap: 20px; /* Espace entre l'image et le texte */
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.service-image {
+    width: 150px; /* Limite la taille de l'image */
+    height: auto;
+    flex-shrink: 0; /* Empêche l'image de se redimensionner */
+    border-radius: 8px; /* Coins arrondis */
+}
+
+.service-text {
+    max-width: 600px; /* Limite la largeur du texte */
+}
+
+.service h3 {
+    color: #1a1a2e;
+    margin-top: 0;
+}
+
+.service p {
+    margin: 5px 0;
+}
+
+/* Section du compte */
+.account-section {
+    padding: 40px;
+    margin: 20px auto;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Pour l'animation */
+    transform: translateY(20px); /* Pour l'animation */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.account-section.visible {
+    opacity: 1; /* Opacité pour rendre visible */
+    transform: translateY(0); /* Retour à la position normale */
+}
+
+.account-title {
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    text-align: center; /* Centrer le titre */
+}
+
+/* Améliorer les styles des paragraphes */
+.account-section p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+/* Styles du bouton de déconnexion */
+.cta-button {
+    display: inline-block;
+    background-color: #75BFFE; /* Couleur différente pour le bouton */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.3s ease; /* Animation au survol */
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cta-button:hover {
+    background-color: #75BFFE; /* Couleur au survol */
+    transform: scale(1.05); /* Agrandissement au survol */
+}
