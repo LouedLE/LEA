@@ -10,6 +10,7 @@ include 'header.php';
     <p>
         Notre ambition est de transformer nos compétences et notre passion en une véritable entreprise, <strong>LEA Web Creation</strong>. Nous avons pour mission de proposer des solutions web modernes et sur mesure pour répondre aux besoins des entreprises et des particuliers. De la création de pages vitrines simples à des systèmes complexes de gestion de contenu, notre objectif est de rendre le web accessible, efficace et esthétiquement plaisant pour nos clients.
     </p>
+    
     <div class="portrait-container">
         <div class="portrait">
             <img src="img/portrait1.png" alt="Portrait de l'étudiant en deuxième année">

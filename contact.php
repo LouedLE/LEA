@@ -3,17 +3,17 @@ include 'config.php';
 include 'header.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $probleme = $_POST['probleme'];
+    $nom = htmlspecialchars($_POST['nom']);
+    $prenom = htmlspecialchars($_POST['prenom']);
+    $email = htmlspecialchars($_POST['email']);
+    $probleme = htmlspecialchars($_POST['probleme']);
 
     $sql = "INSERT INTO contact (nom, prenom, email, probleme) VALUES ('$nom', '$prenom', '$email', '$probleme')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "<p>Message envoyé avec succès!</p>";
+        echo "<p class='success-message'>Message envoyé avec succès!</p>";
     } else {
-        echo "<p>Erreur: " . $sql . "<br>" . $conn->error . "</p>";
+        echo "<p class='error-message'>Erreur: " . $conn->error . "</p>";
     }
 }
 
@@ -30,7 +30,7 @@ $conn->close();
         <p><strong>Téléphone :</strong> <a href="tel:+33615913905">+33 6 15 91 93 05</a></p>
     </div>
 
-    <form method="POST" action="contact.php">
+    <form method="POST" action="contact.php" class="contact-form">
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" required>
 
@@ -43,7 +43,7 @@ $conn->close();
         <label for="probleme">Message :</label>
         <textarea id="probleme" name="probleme" required></textarea>
 
-        <button type="submit">Envoyer</button>
+        <button type="submit" class="cta-button">Envoyer</button>
     </form>
 </section>
 

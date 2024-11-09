@@ -1,5 +1,4 @@
 <?php
-// header.php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -8,52 +7,53 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEA Web Creation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="logo.png">
 </head>
 <body>
-<header>
-    <img src="img/logo.png" alt="Logo de LEA Web Creation" class="logo">
-    <h1 class="site-title">LEA Web Creation</h1> <!-- Titre du site ajouté ici -->
-    <nav>
-        <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="services.php">Services</a></li>
-            <li><a href="portfolio.php">Portfolio</a></li>
-            <li><a href="contact.php">Contact</a></li>
-            <li><a href="a-propos.php">À propos</a></li>
-            <li>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="account.php">Mon Compte</a>
-                <?php else: ?>
-                    <a href="login.php">Connexion</a>
-                <?php endif; ?>
-            </li>
-        </ul>
-    </nav>
+<header id="main-header">
+    <a href="index.php">Accueil</a>
+    <a href="services.php">Services</a>
+    <a href="portfolio.php">Portfolio</a>
+    <a href="contact.php">Contact</a>
+    <a href="a-propos.php">À propos</a>
 </header>
 
-<!-- Le contenu de votre page (sections) sera ici -->
+<!-- Contenu de la page ici -->
 
-<!-- Ajoutez le script JavaScript juste avant la balise de fermeture </body> -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+// Fonction pour détecter le fond de la section visible et ajuster l'apparence du header
+document.addEventListener("DOMContentLoaded", function () {
+    const header = document.getElementById("main-header");
     const sections = document.querySelectorAll("section");
 
-    // Observer pour détecter quand les sections sont visibles
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
+    function adjustHeaderStyle() {
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const headerHeight = header.offsetHeight;
+
+            if (rect.top <= headerHeight && rect.bottom > headerHeight) {
+                const bgColor = window.getComputedStyle(section).backgroundColor;
+                const rgbValues = bgColor.match(/\d+/g).map(Number);
+
+                if (rgbValues[0] > 200 && rgbValues[1] > 200 && rgbValues[2] > 200) {
+                    header.classList.add("light-header");
+                    header.classList.remove("dark-header");
+                } else {
+                    header.classList.add("dark-header");
+                    header.classList.remove("light-header");
+                }
             }
         });
-    });
+    }
 
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    window.addEventListener("scroll", adjustHeaderStyle);
+    adjustHeaderStyle();
 });
 </script>
+
+
+
 </body>
 </html>
