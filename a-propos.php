@@ -13,11 +13,11 @@ include 'header.php';
     
     <div class="portrait-container">
         <div class="portrait">
-            <img src="img/portrait1.png" alt="Portrait de l'étudiant en deuxième année">
+            <img src="portrait1.png" alt="Portrait de l'étudiant en deuxième année">
             <p>Anselme</p>
         </div>
         <div class="portrait">
-            <img src="img/portrait2.jpg" alt="Portrait de l'étudiant en troisième année">
+            <img src="portrait2.jpg" alt="Portrait de l'étudiant en troisième année">
             <p>Louis-Edouard</p>
         </div>
     </div>
