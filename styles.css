@@ -461,7 +461,7 @@ p, ul {
 }
 
 .service-item img {
-    width: 50%; /* ou une autre valeur selon la taille souhaitée */
+    width: 10%; /* ou une autre valeur selon la taille souhaitée */
     height: auto; /* pour conserver les proportions */
     object-fit: cover; /* pour bien cadrer l'image dans la nouvelle taille */
 }
