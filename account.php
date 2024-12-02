@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Récupération des informations de l'utilisateur
 $user_id = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT nom, prenom, email, role FROM users WHERE id = ?");
+$stmt = $conn->prepare("SELECT nom, prenom, email, role, droit FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -21,7 +21,7 @@ $user = $result->fetch_assoc();
         font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
-        background: linear-gradient(to right, #74ebd5, #acb6e5);
+        background: #2e2e2e;
         color: #333;
     }
     .account-container {
@@ -63,6 +63,10 @@ $user = $result->fetch_assoc();
     .button:hover {
         background: #357ab8;
     }
+    .role-info {
+        color: #4a90e2;
+        font-weight: bold;
+    }
 </style>
 
 <main class="account-container">
@@ -72,7 +76,19 @@ $user = $result->fetch_assoc();
         <p><strong>Prénom :</strong> <?= htmlspecialchars($user['prenom']) ?></p>
         <p><strong>E-mail :</strong> <?= htmlspecialchars($user['email']) ?></p>
         <p><strong>Type de compte :</strong> <?= htmlspecialchars($user['role']) ?></p>
+        <p><strong>Rôle dans le système :</strong> <?= htmlspecialchars($user['droit']) ?></p>
     </div>
+
+    <div class="role-info">
+        <?php
+            if ($user['droit'] == 'admin') {
+                echo "<p>Vous êtes un administrateur. Vous avez accès à des fonctionnalités avancées.</p>";
+            } else {
+                echo "<p>Vous êtes un client. Vous pouvez gérer vos informations personnelles et accéder à votre espace.</p>";
+            }
+        ?>
+    </div>
+
     <a href="logout.php" class="button">Se déconnecter</a>
 </main>
 
