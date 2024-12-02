@@ -623,7 +623,7 @@ html {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #2e2e2e;
+    background-color: #f9f9f9;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -664,7 +664,7 @@ form button:hover {
 }
 
 .account-details {
-    background-color: #2e2e2e;
+    background-color: #f9f9f9;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
