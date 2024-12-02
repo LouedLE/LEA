@@ -1,6 +1,6 @@
 <?php
-session_start();
-require_once 'db_connection.php'; // Connexion à la base de données
+include 'header.php';
+include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = htmlspecialchars($_POST['email']);
