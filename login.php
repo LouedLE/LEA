@@ -12,18 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    if ($user && password_verify($password, $user['mdp'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['prenom'];
-        header("Location: account.php");
-        exit;
-    } else {
-        $error = "Adresse e-mail ou mot de passe incorrect.";
-    }
-}
-?>
-
-<style>
+    <style>
     body {
         font-family: 'Arial', sans-serif;
         margin: 0;
@@ -75,6 +64,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         font-weight: bold;
     }
 </style>
+
+    if ($user && password_verify($password, $user['mdp'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_name'] = $user['prenom'];
+        header("Location: account.php");
+        exit;
+    } else {
+        $error = "Adresse e-mail ou mot de passe incorrect.";
+    }
+}
+?>
+
+
 
 <?php include 'header.php'; ?>
 

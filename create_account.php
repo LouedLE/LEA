@@ -9,18 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $role = htmlspecialchars($_POST['role']);
 
-    $stmt = $conn->prepare("INSERT INTO users (nom, prenom, email, mdp, role) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $nom, $prenom, $email, $password, $role);
-    if ($stmt->execute()) {
-        header("Location: login.php");
-        exit;
-    } else {
-        $error = "Erreur lors de la création du compte.";
-    }
-}
-?>
-
-<style>
+    <style>
     body {
         font-family: 'Arial', sans-serif;
         margin: 0;
@@ -72,6 +61,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         font-weight: bold;
     }
 </style>
+
+
+    $stmt = $conn->prepare("INSERT INTO users (nom, prenom, email, mdp, role) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $nom, $prenom, $email, $password, $role);
+    if ($stmt->execute()) {
+        header("Location: login.php");
+        exit;
+    } else {
+        $error = "Erreur lors de la création du compte.";
+    }
+}
+?>
+
+
 
 <?php include 'header.php'; ?>
 
