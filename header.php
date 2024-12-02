@@ -52,8 +52,5 @@ document.addEventListener("DOMContentLoaded", function () {
     adjustHeaderStyle();
 });
 </script>
-
-
-
 </body>
 </html>
