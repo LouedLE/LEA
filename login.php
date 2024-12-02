@@ -12,58 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #2e2e2e;
-        color: #333;
-    }
-    .account-container {
-        max-width: 800px;
-        margin: 50px auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-    h1 {
-        color: #4a90e2;
-        font-size: 2rem;
-    }
-    .account-details {
-        margin: 20px 0;
-        text-align: left;
-        line-height: 1.8;
-    }
-    .account-details p {
-        font-size: 1.2rem;
-        margin: 10px 0;
-    }
-    .account-details p strong {
-        color: #333;
-    }
-    .button {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        background: #4a90e2;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        transition: background 0.3s ease;
-    }
-    .button:hover {
-        background: #357ab8;
-    }
-    .role-info {
-        color: #4a90e2;
-        font-weight: bold;
-    }
-</style>
+    
 
     if ($user && password_verify($password, $user['mdp'])) {
         $_SESSION['user_id'] = $user['id'];
