@@ -1,52 +1,45 @@
 <?php
-
-include 'header.php';
-include 'config.php';
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die('Erreur de connexion : ' . $conn->connect_error);
-}
+session_start();
+require_once 'db_connection.php'; // Connexion à la base de données
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = htmlspecialchars($_POST['email']);
-    $mdp = $_POST['mdp'];
+    $password = htmlspecialchars($_POST['password']);
 
-    $stmt = $conn->prepare("SELECT id, nom, prenom, mdp, role FROM users WHERE email = ?");
-    $stmt->bind_param('s', $email);
+    $stmt = $conn->prepare("SELECT id, nom, prenom, mdp FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->store_result();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $nom, $prenom, $hashed_mdp, $role);
-        $stmt->fetch();
-
-        if (password_verify($mdp, $hashed_mdp)) {
-            $_SESSION['user_id'] = $id;
-            $_SESSION['nom'] = $nom;
-            $_SESSION['prenom'] = $prenom;
-            $_SESSION['role'] = $role;
-            header('Location: account.php');
-            exit;
-        } else {
-            echo "Mot de passe incorrect.";
-        }
+    if ($user && password_verify($password, $user['mdp'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_name'] = $user['prenom'];
+        header("Location: account.php");
+        exit;
     } else {
-        echo "Adresse e-mail non trouvée.";
+        $error = "Adresse e-mail ou mot de passe incorrect.";
     }
-
-    $stmt->close();
 }
-
-$conn->close();
 ?>
 
-<form action="login.php" method="POST">
-    <label for="email">Adresse e-mail :</label>
-    <input type="email" id="email" name="email" required>
+<?php include 'header.php'; ?>
 
-    <label for="mdp">Mot de passe :</label>
-    <input type="password" id="mdp" name="mdp" required>
+<main class="form-container">
+    <h1>Connexion</h1>
+    <?php if (isset($error)): ?>
+        <div class="error"><?= $error ?></div>
+    <?php endif; ?>
+    <form method="POST" action="">
+        <label for="email">Adresse e-mail :</label>
+        <input type="email" name="email" id="email" required>
+        
+        <label for="password">Mot de passe :</label>
+        <input type="password" name="password" id="password" required>
+        
+        <button type="submit">Se connecter</button>
+    </form>
+    <p>Pas encore de compte ? <a href="create_account.php">Créer un compte</a></p>
+</main>
 
-    <button type="submit">Se connecter</button>
-</form>
+<?php include 'footer.php'; ?>

@@ -1,54 +1,53 @@
 <?php
-// Connexion à la base de données
-include 'header.php';
-include 'config.php';
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die('Erreur de connexion : ' . $conn->connect_error);
-}
+require_once 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = htmlspecialchars($_POST['nom']);
     $prenom = htmlspecialchars($_POST['prenom']);
     $email = htmlspecialchars($_POST['email']);
-    $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $role = htmlspecialchars($_POST['role']);
 
-    // Insertion dans la table `users`
     $stmt = $conn->prepare("INSERT INTO users (nom, prenom, email, mdp, role) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param('sssss', $nom, $prenom, $email, $mdp, $role);
-
+    $stmt->bind_param("sssss", $nom, $prenom, $email, $password, $role);
     if ($stmt->execute()) {
-        echo "Compte créé avec succès. <a href='login.php'>Connectez-vous ici</a>";
+        header("Location: login.php");
+        exit;
     } else {
-        echo "Erreur : " . $stmt->error;
+        $error = "Erreur lors de la création du compte.";
     }
-
-    $stmt->close();
 }
-
-$conn->close();
 ?>
 
-<form action="create_account.php" method="POST">
-    <label for="nom">Nom :</label>
-    <input type="text" id="nom" name="nom" required>
+<?php include 'header.php'; ?>
 
-    <label for="prenom">Prénom :</label>
-    <input type="text" id="prenom" name="prenom" required>
+<main class="form-container">
+    <h1>Créer un compte</h1>
+    <?php if (isset($error)): ?>
+        <div class="error"><?= $error ?></div>
+    <?php endif; ?>
+    <form method="POST" action="">
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" id="nom" required>
 
-    <label for="email">Adresse e-mail :</label>
-    <input type="email" id="email" name="email" required>
+        <label for="prenom">Prénom :</label>
+        <input type="text" name="prenom" id="prenom" required>
 
-    <label for="mdp">Mot de passe :</label>
-    <input type="password" id="mdp" name="mdp" required>
+        <label for="email">Adresse e-mail :</label>
+        <input type="email" name="email" id="email" required>
 
-    <label for="role">Type de compte :</label>
-    <select id="role" name="role" required>
-        <option value="particulier">Particulier</option>
-        <option value="professionnel">Professionnel</option>
-    </select>
+        <label for="password">Mot de passe :</label>
+        <input type="password" name="password" id="password" required>
 
-    <button type="submit">Créer un compte</button>
-</form>
+        <label for="role">Type de compte :</label>
+        <select name="role" id="role">
+            <option value="Particulier">Particulier</option>
+            <option value="Professionnel">Professionnel</option>
+        </select>
+
+        <button type="submit">Créer un compte</button>
+    </form>
+    <p>Déjà un compte ? <a href="login.php">Se connecter</a></p>
+</main>
+
+<?php include 'footer.php'; ?>
