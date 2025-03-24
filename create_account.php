@@ -1,20 +1,19 @@
 <?php
 include 'config.php';
-include 'header.php'; // Inclure le header
+include 'header.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
     $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
-    $role = $_POST['role'];
 
-    $sql = "INSERT INTO users (nom, prenom, email, mdp, role) VALUES ('$nom', '$prenom', '$email', '$mdp', '$role')";
+    $sql = "INSERT INTO users (nom, prenom, email, mdp) VALUES ('$nom', '$prenom', '$email', '$mdp')";
 
     if ($conn->query($sql) === TRUE) {
         echo "<p class='success-message'>Compte créé avec succès! <a href='login.php'>Connectez-vous ici</a></p>";
     } else {
-        echo "<p class='error-message'>Erreur: " . $sql . "<br>" . $conn->error . "</p>";
+        echo "<p class='error-message'>Erreur: " . $conn->error . "</p>";
     }
 }
 
@@ -35,9 +34,6 @@ $conn->close();
 
         <label for="mdp">Mot de passe :</label>
         <input type="password" id="mdp" name="mdp" required>
-
-        <label for="role">Rôle (1 ou 2) :</label>
-        <input type="number" id="role" name="role" required>
 
         <button type="submit" class="cta-button">Créer un compte</button>
     </form>

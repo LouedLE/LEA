@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-include 'header.php'; // Inclure le header
+include 'header.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$sql = "SELECT nom, prenom, email, role FROM users WHERE id = $user_id";
+$sql = "SELECT nom, prenom, email FROM users WHERE id = $user_id";
 $result = $conn->query($sql);
 
 if ($result->num_rows == 1) {
@@ -18,17 +18,9 @@ if ($result->num_rows == 1) {
     echo "<p><strong>Nom :</strong> " . htmlspecialchars($user['nom']) . "</p>";
     echo "<p><strong>Prénom :</strong> " . htmlspecialchars($user['prenom']) . "</p>";
     echo "<p><strong>Email :</strong> " . htmlspecialchars($user['email']) . "</p>";
-
-    if ($user['role'] == 1) {
-        echo "<p><strong>Rôle :</strong> Administrateur</p>";
-    } elseif ($user['role'] == 2) {
-        echo "<p><strong>Rôle :</strong> Client</p>";
-    } else {
-        echo "<p><strong>Rôle :</strong> Inconnu</p>";
-    }
     echo "</section>";
 } else {
-    echo "<p>Erreur : utilisateur non trouvé.</p>";
+    echo "<p class='error-message'>Erreur : utilisateur non trouvé.</p>";
 }
 
 $conn->close();

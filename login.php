@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-include 'header.php'; // Inclure le header
+include 'header.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
