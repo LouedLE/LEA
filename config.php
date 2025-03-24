@@ -1,8 +1,8 @@
 <?php
 // config.php : Connexion à la base de données
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "leawebbloued";
+$password = "Lea161204";
 $dbname = "lea_web_creation";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
