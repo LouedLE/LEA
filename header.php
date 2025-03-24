@@ -18,7 +18,6 @@ session_start();
     <a href="portfolio.php">Portfolio</a>
     <a href="contact.php">Contact</a>
     <a href="a-propos.php">À propos</a>
-    <a href="account.php">Mon compte</a>
 </header>
 
 <!-- Contenu de la page ici -->
@@ -53,5 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
     adjustHeaderStyle();
 });
 </script>
+
+
+
 </body>
 </html>

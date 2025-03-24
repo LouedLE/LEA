@@ -1,49 +1,61 @@
 <?php
-include 'header.php';
 include 'config.php';
+include 'header.php'; // Inclure le header
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = htmlspecialchars($_POST['email']);
-    $password = htmlspecialchars($_POST['password']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $mdp = $_POST['mdp'];
 
-    $stmt = $conn->prepare("SELECT id, nom, prenom, mdp FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($sql);
 
-    
-
-    if ($user && password_verify($password, $user['mdp'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['prenom'];
-        header("Location: account.php");
-        exit;
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($mdp, $user['mdp'])) {
+            $_SESSION['user_id'] = $user['id'];
+            header("Location: account.php");
+            exit();
+        } else {
+            echo "<p class='error-message'>Mot de passe incorrect.</p>";
+        }
     } else {
-        $error = "Adresse e-mail ou mot de passe incorrect.";
+        echo "<p class='error-message'>Email non trouvé.</p>";
     }
 }
+
+$conn->close();
 ?>
 
+<section class="light-section">
+    <h2>Connexion</h2>
+    <form method="POST" action="login.php" class="contact-form">
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
 
+        <label for="mdp">Mot de passe :</label>
+        <input type="password" id="mdp" name="mdp" required>
 
-<?php include 'header.php'; ?>
-
-<main class="form-container">
-    <h1>Connexion</h1>
-    <?php if (isset($error)): ?>
-        <div class="error"><?= $error ?></div>
-    <?php endif; ?>
-    <form method="POST" action="">
-        <label for="email">Adresse e-mail :</label>
-        <input type="email" name="email" id="email" required>
-        
-        <label for="password">Mot de passe :</label>
-        <input type="password" name="password" id="password" required>
-        
-        <button type="submit">Se connecter</button>
+        <button type="submit" class="cta-button">Se connecter</button>
     </form>
-    <p>Pas encore de compte ? <a href="create_account.php">Créer un compte</a></p>
-</main>
+    <p>Pas de compte ? <a href="create_account.php">Créez-en un ici</a>.</p>
+</section>
 
-<?php include 'footer.php'; ?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+</script>
+</body>
+</html>
