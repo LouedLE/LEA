@@ -1,9 +1,9 @@
 <?php
 // config.php : Connexion à la base de données
-$servername = "localhost";
+$servername = "leawebbloued.mysql.db";
 $username = "leawebbloued";
 $password = "Lea161204";
-$dbname = "lea_web_creation";
+$dbname = "leawebbloued";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
