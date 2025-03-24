@@ -20,10 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 ?>
 
-<section id="contact" class="fade-in">
+<section id="contact" class="light-section fade-in">
     <h2>Contactez-nous</h2>
     <p>Nous sommes là pour vous aider ! N'hésitez pas à nous contacter via le formulaire ci-dessous ou par les moyens suivants :</p>
-    
+
     <div class="contact-info">
         <h3>Informations de Contact</h3>
         <p><strong>Email :</strong> <a href="mailto:leawebcreation@gmail.com">leawebcreation@gmail.com</a></p>
