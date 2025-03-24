@@ -16,31 +16,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: account.php");
             exit();
         } else {
-            echo "<p>Mot de passe incorrect.</p>";
+            echo "<p class='error-message'>Mot de passe incorrect.</p>";
         }
     } else {
-        echo "<p>Email non trouvé.</p>";
+        echo "<p class='error-message'>Email non trouvé.</p>";
     }
 }
 
 $conn->close();
 ?>
 
-<h2>Connexion</h2>
-<form method="POST" action="login.php">
-    <label for="email">Email :</label>
-    <input type="email" id="email" name="email" required>
+<section class="light-section">
+    <h2>Connexion</h2>
+    <form method="POST" action="login.php" class="contact-form">
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
 
-    <label for="mdp">Mot de passe :</label>
-    <input type="password" id="mdp" name="mdp" required>
+        <label for="mdp">Mot de passe :</label>
+        <input type="password" id="mdp" name="mdp" required>
 
-    <button type="submit">Se connecter</button>
-</form>
+        <button type="submit" class="cta-button">Se connecter</button>
+    </form>
+    <p>Pas de compte ? <a href="create_account.php">Créez-en un ici</a>.</p>
+</section>
 
-<!-- Lien pour créer un compte -->
-<p>Pas de compte ? <a href="create_account.php">Créez-en un ici</a>.</p>
-
-<!-- Ajouter le script JavaScript -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const sections = document.querySelectorAll("section");
