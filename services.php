@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
         echo "<h3>" . $row['nom'] . "</h3>";
         echo "<p>" . $row['description'] . "</p>";
         echo "<p class='service-price'>Prix : " . $row['prix'] . " €</p>";
-        echo "<button class='devis-button'>Faire une demande de devis</button>";
+        echo "<a href='contact.php' class='cta-button devis-button'>Faire une demande de devis</a>";
         echo "</div>"; // Fin de service-text
         echo "</div>"; // Fin de service-item
     }
@@ -31,3 +31,21 @@ echo "</section>";
 $conn->close();
 include 'footer.php';
 ?>
+
+<style>
+.devis-button {
+    display: inline-block;
+    background-color: #ff4500;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.devis-button:hover {
+    background-color: #e03e00;
+}
+</style>
