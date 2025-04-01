@@ -1,33 +1,73 @@
-<?php
-include 'config.php';
-include 'header.php';
 
-// Récupération des services depuis la base de données
-$sql = "SELECT * FROM services";
-$result = $conn->query($sql);
+<!-- Services Section -->
+<section id="services">
+    <div class="container">
+        <h2>Nos Services</h2>
+        <div class="services-container">
+            <div class="service-card">
+                <img src="assets/images/web-design.jpg" alt="Web Design">
+                <h3>Web Design</h3>
+                <p>Création de designs modernes et responsifs adaptés à vos besoins.</p>
+                <a href="#" class="button">En savoir plus</a>
+            </div>
+            <div class="service-card">
+                <img src="assets/images/seo.jpg" alt="SEO">
+                <h3>SEO & Référencement</h3>
+                <p>Optimisation pour un meilleur positionnement sur les moteurs de recherche.</p>
+                <a href="#" class="button">En savoir plus</a>
+            </div>
+            <div class="service-card">
+                <img src="assets/images/ecommerce.jpg" alt="E-commerce">
+                <h3>Solutions E-commerce</h3>
+                <p>Développement de boutiques en ligne performantes et sécurisées.</p>
+                <a href="#" class="button">En savoir plus</a>
+            </div>
+        </div>
+    </div>
+</section>
 
-echo "<section id='services'>";
-echo "<h2>Nos Services</h2>";
-echo "<div class='services'>"; // Conteneur pour organiser les services de manière similaire à l'accueil
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "<div class='service-item'>"; // Utilisation de la même classe que dans la page d'accueil pour cohérence
-        echo "<div class='service-text'>";
-        echo "<h3>" . $row['nom'] . "</h3>";
-        echo "<p>" . $row['description'] . "</p>";
-        echo "<p class='service-price'>Prix : " . $row['prix'] . " €</p>";
-        echo "<button class='devis-button'>Faire une demande de devis</button>";
-        echo "</div>"; // Fin de service-text
-        echo "</div>"; // Fin de service-item
-    }
-} else {
-    echo "<p>Aucun service disponible.</p>";
+<style>
+/* Services Section */
+#services {
+    padding: 60px 20px;
+    background-color: var(--background-color);
+    text-align: center;
 }
 
-echo "</div>"; // Fin de la div services
-echo "</section>";
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
 
-$conn->close();
-include 'footer.php';
-?>
+.service-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    text-align: center;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.service-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.service-card h3 {
+    margin: 15px 0;
+    color: var(--primary-color);
+}
+
+.service-card p {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+</style>
