@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
         echo "<h3>" . $row['nom'] . "</h3>";
         echo "<p>" . $row['description'] . "</p>";
         echo "<p class='service-price'>Prix : " . $row['prix'] . " €</p>";
-        echo "<a href='contact.php' class='cta-button devis-button'>Faire une demande de devis</a>";
+        echo "<a href='devis.php' class='cta-button devis-button'>Faire une demande de devis</a>";
         echo "</div>"; // Fin de service-text
         echo "</div>"; // Fin de service-item
     }
