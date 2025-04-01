@@ -13,7 +13,6 @@ echo "<div class='services'>"; // Conteneur pour organiser les services de mani�
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<div class='service-item'>"; // Utilisation de la même classe que dans la page d'accueil pour cohérence
-        echo "<img src='img/" . $row['image'] . "' alt='" . $row['nom'] . "' class='service-image'>";
         echo "<div class='service-text'>";
         echo "<h3>" . $row['nom'] . "</h3>";
         echo "<p>" . $row['description'] . "</p>";
