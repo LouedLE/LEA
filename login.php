@@ -1,64 +1,61 @@
-<?php 
-$pageTitle = "Connexion - LEA Web Creation";
-$pageDescription = "Connectez-vous à votre espace client LEA Web Creation.";
-include 'config.php';  // Connexion BDD, session
-$error_msg = "";
+<?php
+include 'config.php';
+include 'header.php';
 
-// Traitement du formulaire de connexion
-if($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = trim($_POST['email'] ?? "");
-    $password = trim($_POST['password'] ?? "");
-    if($email === "" || $password === "") {
-        $error_msg = "Veuillez entrer votre email et votre mot de passe.";
-    } else {
-        $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if($row = $result->fetch_assoc()) {
-            // Vérifier le mot de passe
-            if(password_verify($password, $row['password'])) {
-                // Succès : initialiser la session utilisateur
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['user_email'] = $email;
-                header("Location: account.php");
-                exit();
-            } else {
-                $error_msg = "Mot de passe incorrect.";
-            }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $mdp = $_POST['mdp'];
+
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($mdp, $user['mdp'])) {
+            $_SESSION['user_id'] = $user['id'];
+            header("Location: account.php");
+            exit();
         } else {
-            $error_msg = "Aucun compte trouvé pour cet email.";
+            echo "<p class='error-message'>Mot de passe incorrect.</p>";
         }
-        $stmt->close();
+    } else {
+        echo "<p class='error-message'>Email non trouvé.</p>";
     }
 }
 
-// Inclure le header après avoir éventuellement défini $error_msg
-include 'header.php'; 
+$conn->close();
 ?>
 
-<h1>Connexion</h1>
-<?php 
-// Message de succès d'inscription depuis create_account
-if(isset($_GET['register']) && $_GET['register'] === "success"): ?>
-    <p class="success">Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.</p>
-<?php endif; ?>
-<?php if($error_msg): ?>
-    <p class="error"><?php echo htmlspecialchars($error_msg); ?></p>
-<?php endif; ?>
-
-<form method="post" action="login.php">
-    <div class="form-group">
+<section class="light-section">
+    <h2>Connexion</h2>
+    <form method="POST" action="login.php" class="contact-form">
         <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required />
-    </div>
-    <div class="form-group">
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required />
-    </div>
-    <button type="submit" class="btn cta">Se connecter</button>
-</form>
+        <input type="email" id="email" name="email" required>
 
-<p>Pas de compte ? <a href="create_account.php">Créez-en un ici</a>.</p>
+        <label for="mdp">Mot de passe :</label>
+        <input type="password" id="mdp" name="mdp" required>
 
-<?php include 'footer.php'; ?>
+        <button type="submit" class="cta-button">Se connecter</button>
+    </form>
+    <p>Pas de compte ? <a href="create_account.php">Créez-en un ici</a>.</p>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+</script>
+</body>
+</html>
