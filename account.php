@@ -1,49 +1,21 @@
-<?php
+<?php 
+$pageTitle = "Mon Compte - LEA Web Creation";
+$pageDescription = "Espace personnel de l'utilisateur sur LEA Web Creation.";
 include 'config.php';
-include 'header.php';
-
-if (!isset($_SESSION['user_id'])) {
+if(!isset($_SESSION['user_id'])) {
+    // Rediriger vers la page de connexion si non connecté
     header("Location: login.php");
     exit();
 }
-
-$user_id = $_SESSION['user_id'];
-$sql = "SELECT nom, prenom, email FROM users WHERE id = $user_id";
-$result = $conn->query($sql);
-
-if ($result->num_rows == 1) {
-    $user = $result->fetch_assoc();
-    echo "<section class='account-section light-section visible'>";
-    echo "<h2 class='account-title'>Mon Compte</h2>";
-    echo "<p><strong>Nom :</strong> " . htmlspecialchars($user['nom']) . "</p>";
-    echo "<p><strong>Prénom :</strong> " . htmlspecialchars($user['prenom']) . "</p>";
-    echo "<p><strong>Email :</strong> " . htmlspecialchars($user['email']) . "</p>";
-    echo "</section>";
-} else {
-    echo "<p class='error-message'>Erreur : utilisateur non trouvé.</p>";
-}
-
-$conn->close();
+include 'header.php'; 
 ?>
 
-<a href="logout.php" class="cta-button">Déconnexion</a>
+<h1>Mon Compte</h1>
+<p>Bonjour, <strong><?php echo htmlspecialchars($_SESSION['user_email']); ?></strong> ! Vous êtes connecté.</p>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const sections = document.querySelectorAll(".account-section");
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-            }
-        });
-    });
+<!-- Section pour d'éventuelles informations du compte ou actions supplémentaires -->
+<p>Bienvenue dans votre espace personnel. Ici, vous pourrez consulter et gérer vos informations et demandes.</p>
 
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-});
-</script>
-</body>
-</html>
+<p><a href="logout.php" class="btn">Déconnexion</a></p>
+
+<?php include 'footer.php'; ?>

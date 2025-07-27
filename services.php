@@ -1,51 +1,51 @@
-<?php
-include 'config.php';
-include 'header.php';
-
-// Récupération des services depuis la base de données
-$sql = "SELECT * FROM services";
-$result = $conn->query($sql);
-
-echo "<section id='services'>";
-echo "<h2>Nos Services</h2>";
-echo "<div class='services'>"; // Conteneur pour organiser les services de manière similaire à l'accueil
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "<div class='service-item'>"; // Utilisation de la même classe que dans la page d'accueil pour cohérence
-        echo "<div class='service-text'>";
-        echo "<h3>" . $row['nom'] . "</h3>";
-        echo "<p>" . $row['description'] . "</p>";
-        echo "<p class='service-price'>Prix : " . $row['prix'] . " €</p>";
-        echo "<a href='devis.php' class='cta-button devis-button'>Faire une demande de devis</a>";
-        echo "</div>"; // Fin de service-text
-        echo "</div>"; // Fin de service-item
-    }
-} else {
-    echo "<p>Aucun service disponible.</p>";
-}
-
-echo "</div>"; // Fin de la div services
-echo "</section>";
-
-$conn->close();
-include 'footer.php';
+<?php 
+$pageTitle = "Nos Services - LEA Web Creation";
+$pageDescription = "Découvrez les services de LEA Web Creation : référencement SEO, maintenance web, création de sites vitrines, e-commerce, sites dynamiques, analyse de performances.";
+include 'header.php'; 
 ?>
 
-<style>
-.devis-button {
-    display: inline-block;
-    background-color: #ff4500;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    text-align: center;
-    transition: background-color 0.3s ease;
-}
+<h1>Nos Services</h1>
 
-.devis-button:hover {
-    background-color: #e03e00;
-}
-</style>
+<section class="service">
+    <h2>Référencement SEO</h2>
+    <p>Optimisation de votre site pour les moteurs de recherche afin d’augmenter votre visibilité.</p>
+    <p><strong>Prix :</strong> 100.00 €</p>
+    <p><a href="devis.php" class="btn cta">Faire une demande de devis</a></p>
+</section>
+
+<section class="service">
+    <h2>Maintenance web</h2>
+    <p>Services de maintenance et de mise à jour de votre site pour assurer son bon fonctionnement.</p>
+    <p><strong>Prix :</strong> 200.00 €</p>
+    <p><a href="devis.php" class="btn cta">Faire une demande de devis</a></p>
+</section>
+
+<section class="service">
+    <h2>Création de sites vitrines</h2>
+    <p>Conception de sites informatifs pour présenter les activités, produits ou services d’une entreprise. Idéal pour les petites entreprises souhaitant une présence en ligne.</p>
+    <p><strong>Prix :</strong> 1000.00 €</p>
+    <p><a href="devis.php" class="btn cta">Faire une demande de devis</a></p>
+</section>
+
+<section class="service">
+    <h2>Développement de sites e-commerce</h2>
+    <p>Création de boutiques en ligne avec gestion des produits, paiements sécurisés et suivi des commandes.</p>
+    <p><strong>Prix :</strong> 1500.00 €</p>
+    <p><a href="devis.php" class="btn cta">Faire une demande de devis</a></p>
+</section>
+
+<section class="service">
+    <h2>Sites dynamiques</h2>
+    <p>Développement de sites interactifs avec gestion de bases de données et fonctionnalités avancées (blogs, formulaires...).</p>
+    <p><strong>Prix :</strong> 1500.00 €</p>
+    <p><a href="devis.php" class="btn cta">Faire une demande de devis</a></p>
+</section>
+
+<section class="service">
+    <h2>Analyse et suivi des performances</h2>
+    <p>Suivi des statistiques de visite et analyse des performances pour optimiser le site en continu.</p>
+    <p><strong>Prix :</strong> 200.00 €</p>
+    <p><a href="devis.php" class="btn cta">Faire une demande de devis</a></p>
+</section>
+
+<?php include 'footer.php'; ?>

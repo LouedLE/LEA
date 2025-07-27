@@ -1,7 +1,8 @@
 <?php
-session_start();
-session_unset();
+include 'config.php';
+// Si une session est active, la détruire pour déconnexion
 session_destroy();
-header("Location: login.php");
+// Rediriger vers la page d'accueil après déconnexion
+header("Location: index.php");
 exit();
 ?>

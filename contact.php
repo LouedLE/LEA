@@ -1,52 +1,37 @@
-<?php
-include 'config.php';
-include 'header.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = htmlspecialchars($_POST['nom']);
-    $prenom = htmlspecialchars($_POST['prenom']);
-    $email = htmlspecialchars($_POST['email']);
-    $probleme = htmlspecialchars($_POST['probleme']);
-
-    $sql = "INSERT INTO contact (nom, prenom, email, probleme) VALUES ('$nom', '$prenom', '$email', '$probleme')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "<p class='success-message'>Message envoyé avec succès!</p>";
-    } else {
-        echo "<p class='error-message'>Erreur: " . $conn->error . "</p>";
-    }
-}
-
-$conn->close();
+<?php 
+$pageTitle = "Contactez-nous - LEA Web Creation";
+$pageDescription = "Contactez l'équipe LEA Web Creation via notre formulaire de contact ou par téléphone/email.";
+include 'header.php'; 
 ?>
 
-<section id="contact" class="light-section fade-in">
-    <h2>Contactez-nous</h2>
-    <p>Nous sommes là pour vous aider ! N'hésitez pas à nous contacter via le formulaire ci-dessous ou par les moyens suivants :</p>
+<h1>Contactez-nous</h1>
+<p>Nous sommes là pour vous aider ! N’hésitez pas à nous contacter via le formulaire ci-dessous ou par les moyens suivants :</p>
 
-    <div class="contact-info">
-        <h3>Informations de Contact</h3>
-        <p><strong>Email :</strong> <a href="mailto:leawebcreation@gmail.com">leawebcreation@gmail.com</a></p>
-        <p><strong>Téléphone :</strong> <a href="tel:+33615913905">+33 6 15 91 93 05</a></p>
+<h2>Informations de Contact</h2>
+<p><strong>Email :</strong> <a href="mailto:leawebcreation@gmail.com">leawebcreation@gmail.com</a><br />
+<strong>Téléphone :</strong> +33 6 15 91 93 05</p>
+
+<h2>Formulaire de Contact</h2>
+<form method="post" action="contact.php">
+    <div class="form-row">
+        <div class="field">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required />
+        </div>
+        <div class="field">
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" required />
+        </div>
     </div>
-
-    <form method="POST" action="contact.php" class="contact-form">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required>
-
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required>
-
+    <div class="form-group">
         <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" required />
+    </div>
+    <div class="form-group">
+        <label for="message">Message :</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn cta">Envoyer</button>
+</form>
 
-        <label for="probleme">Message :</label>
-        <textarea id="probleme" name="probleme" required></textarea>
-
-        <button type="submit" class="cta-button">Envoyer</button>
-    </form>
-</section>
-
-<?php
-include 'footer.php';
-?>
+<?php include 'footer.php'; ?>

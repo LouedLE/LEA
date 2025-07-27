@@ -1,27 +1,32 @@
 <?php
-include 'config.php';
+include 'config.php';  // Inclure connexion BDD
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = htmlspecialchars($_POST['nom']);
-    $email = htmlspecialchars($_POST['email']);
-    $telephone = htmlspecialchars($_POST['telephone']);
-    $service = htmlspecialchars($_POST['service']);
-    $message = htmlspecialchars($_POST['message']);
+// Vérifier que le formulaire a été soumis
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Récupérer et échapper les données du formulaire
+    $nom       = trim($_POST['nom'] ?? "");
+    $email     = trim($_POST['email'] ?? "");
+    $telephone = trim($_POST['telephone'] ?? "");
+    $service   = trim($_POST['service'] ?? "");
+    $details   = trim($_POST['details'] ?? "");
     
-    $sql = "INSERT INTO devis (nom, email, telephone, service, message) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $nom, $email, $telephone, $service, $message);
-    
-    if ($stmt->execute()) {
-        echo "<script>alert('Votre demande de devis a bien été envoyée. Nous vous contacterons bientôt.'); window.location.href='devis.php';</script>";
+    if($nom !== "" && $email !== "" && filter_var($email, FILTER_VALIDATE_EMAIL) && $service !== "") {
+        // Préparer la requête d'insertion sécurisée
+        $stmt = $conn->prepare("INSERT INTO devis (nom, email, telephone, service, details, date_demande) VALUES (?, ?, ?, ?, ?, NOW())");
+        $stmt->bind_param("sssss", $nom, $email, $telephone, $service, $details);
+        $stmt->execute();
+        $stmt->close();
+        // Rediriger vers la page devis avec message de succès
+        header("Location: devis.php?success=1");
+        exit();
     } else {
-        echo "<script>alert('Erreur lors de l'envoi de votre demande. Veuillez réessayer.'); window.location.href='devis.php';</script>";
+        // Données invalides ou incomplètes, redirection sans succès
+        header("Location: devis.php");
+        exit();
     }
-    
-    $stmt->close();
-    $conn->close();
 } else {
-    header("Location: devis.php");
+    // Accès direct non autorisé
+    header("Location: index.php");
     exit();
 }
 ?>
