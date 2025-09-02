@@ -139,6 +139,12 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
     <p>Un rendu premium, des chargements rapides, un SEO propre — sans complexité.</p>
     <a class="btn" href="?page=contact">Demander un devis</a>
     <div class="hero-art">
+    <!-- Calque 1 (lent) -->
+    <div class="px-layer px-l1"></div>
+    <!-- Calque 2 (moyen) -->
+    <div class="px-layer px-l2"></div>
+    <!-- Calque 3 (rapide) -->
+    <div class="px-layer px-l3"></div>
     <img src="assets/images/hero.png" alt="Présentation LEA Web Creation" class="hero-img"></div>
   </section>
 
