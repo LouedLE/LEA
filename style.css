@@ -244,3 +244,33 @@ textarea{ resize:vertical }
 :root[data-theme="light"] .theme-toggle .moon { display: none; }
 
 .section { padding-top: 18px; }
+
+/* Hero avec effet de parallaxe */
+.hero-art {
+  position: relative;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.hero-img {
+  transform: translateY(0);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+/* Boutons */
+.btn {
+  transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+.btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.1);
+}
+
+/* Cartes */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+}

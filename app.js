@@ -37,3 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 })();
+
+// Parallaxe léger sur l'image du hero
+window.addEventListener('scroll', () => {
+  const heroImg = document.querySelector('.hero-img');
+  if (!heroImg) return;
+  const scrolled = window.scrollY;
+  heroImg.style.transform = `translateY(${scrolled * 0.2}px)`; // 0.2 = intensité
+});
