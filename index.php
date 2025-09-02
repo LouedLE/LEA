@@ -34,6 +34,13 @@ function db(): PDO {
         message TEXT NOT NULL,
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS faq_questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(190) NOT NULL,
+    question TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('new','read','done') NOT NULL DEFAULT 'new'
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
     $count = $pdo->query("SELECT COUNT(*) c FROM services")->fetch()['c'] ?? 0;
     if ((int)$count === 0) {
         $stmt = $pdo->prepare("INSERT INTO services (title, excerpt, price, position) VALUES (?,?,?,?)");
@@ -61,6 +68,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $flash = "Veuillez compléter tous les champs correctement.";
         }
     }
+
+    if ($page === 'faq') {
+      $email = trim((string)($_POST['email'] ?? ''));
+      $question = trim((string)($_POST['question'] ?? ''));
+      if (filter_var($email, FILTER_VALIDATE_EMAIL) && $question) {
+        $st = db()->prepare("INSERT INTO faq_questions (email, question) VALUES (?, ?)");
+        $st->execute([$email, $question]);
+        $flash = "Merci ! Votre question a bien été envoyée.";
+      } else {
+        $flash = "Veuillez saisir un email valide et une question.";
+        }
+    }
+
     if ($page === 'reviews') {
         $author = trim((string)($_POST['author'] ?? ''));
         $rating = (int)($_POST['rating'] ?? 0);
@@ -98,9 +118,12 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
       <a href="?page=product">Produit</a>
       <a href="?page=contact">Devis</a>
       <a href="?page=reviews">Avis</a>
+      <a href="?page=portfolio">Réalisations</a>
+      <a href="?page=faq">FAQ</a>
+      <a href="?page=about">À propos</a>
       <button class="theme-toggle" type="button" aria-label="Changer de thème">
-  <span class="sun">☀️</span>
-  <span class="moon">🌙</span>
+      <span class="sun">☀️</span>
+      <span class="moon">🌙</span>
 </button>
 
     </nav>
@@ -216,6 +239,7 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
     <?php endforeach; ?>
   </div>
 
+
 <?php elseif ($page === 'product'): ?>
   <!-- Full-bleed scrollytelling -->
   <div class="fullbleed">
@@ -255,6 +279,55 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
       </div>
     </section>
   </div>
+
+<?php elseif ($page === 'portfolio'): ?>
+  <h1>Nos réalisations</h1>
+  <div class="grid">
+    <div class="card" data-reveal>
+      <h3>Refonte d’un site vitrine</h3>
+      <img src="assets/images/portfolio-1.jpg" alt="Projet 1" class="service-thumb">
+      <p>Avant / Après : un site modernisé, responsive et rapide.</p>
+    </div>
+    <div class="card" data-reveal>
+      <h3>Boutique en ligne</h3>
+      <img src="assets/images/portfolio-2.jpg" alt="Projet 2" class="service-thumb">
+      <p>Une e-boutique simple et efficace pour une petite marque.</p>
+    </div>
+  </div>
+
+<?php elseif ($page === 'faq'): ?>
+  <h1>Foire aux questions</h1>
+  <div class="card" data-reveal>
+    <h3>Quels sont vos délais ?</h3>
+    <p>Un site vitrine simple est livré en 2 à 3 semaines.</p>
+  </div>
+  <div class="card" data-reveal>
+    <h3>Quels sont vos tarifs ?</h3>
+    <p>Nos offres démarrent à 499€, adaptées selon vos besoins.</p>
+  </div>
+  <div class="card" data-reveal>
+    <h3>Proposez-vous un suivi ?</h3>
+    <p>Oui, nous proposons un accompagnement et une maintenance annuelle.</p>
+
+    <h2 class="section">Poser une question</h2>
+<form method="post" class="form" data-reveal>
+  <label>Email
+    <input type="email" name="email" required>
+  </label>
+  <label>Votre question
+    <textarea name="question" rows="5" required></textarea>
+  </label>
+  <button class="btn">Envoyer</button>
+</form>
+
+  </div>
+
+<?php elseif ($page === 'about'): ?>
+  <h1>À propos</h1>
+  <img src="assets/images/about.png" alt="Portrait" class="contact-illu">
+  <p>Je suis passionné(e) par le web design et le développement.  
+     Avec LEA Web Creation, ma mission est de créer des sites modernes, rapides et accessibles à toutes les entreprises.  
+     Mon objectif : transformer vos idées en expériences numériques élégantes.</p>
 
 <?php else: ?>
   <h1>Page non trouvée</h1>

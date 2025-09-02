@@ -243,3 +243,4 @@ textarea{ resize:vertical }
 :root[data-theme="light"] .theme-toggle .sun { display: inline; }
 :root[data-theme="light"] .theme-toggle .moon { display: none; }
 
+.section { padding-top: 18px; }
