@@ -106,6 +106,11 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
   <link rel="stylesheet" href="style.css">
   <script defer src="app.js"></script>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+
+
 </head>
 <body>
 <header class="site-header">
