@@ -105,6 +105,26 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
   <title>LEA Web Creation</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="app.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7W38J2B6RB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Consentement par défaut (à adapter si tu ajoutes une bannière)
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'granted'
+  });
+
+  gtag('config', 'G-7W38J2B6RB', {
+    'anonymize_ip': true // utile côté RGPD
+  });
+</script>
+
+
 </head>
 <body>
 <header class="site-header">
