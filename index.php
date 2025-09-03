@@ -99,6 +99,7 @@ $services = db()->query("SELECT * FROM services ORDER BY position ASC, id DESC")
 $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20")->fetchAll();
 ?><!doctype html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,14 +111,41 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
   <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png">
   <link rel="apple-touch-icon" href="assets/logo.png">
 
+  <script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ProfessionalService",
+  "name":"LEA Web Creation",
+  "url":"https://leawebcreation.fr/",
+  "logo":"https://leawebcreation.fr/assets/logo.png",
+  "image":"https://leawebcreation.fr/assets/images/hero.jpg",
+  "description":"Création de sites modernes, rapides et SEO-friendly.",
+  "areaServed":"FR",
+  "sameAs":[]
+}
+</script>
 
+
+  <?php
+$meta = [
+  'home' => ['LEA Web Creation – Sites modernes', 'Création de sites rapides et élégants.'],
+  'services' => ['Services – LEA Web Creation', 'Sites vitrine, SEO, conseil.'],
+  'product' => ['Produit – LEA Web Creation', 'Design premium, performances, sécurité.'],
+  'contact' => ['Devis / Contact – LEA', 'Parlez-nous de votre projet.'],
+  'faq' => ['FAQ – LEA', 'Toutes les réponses à vos questions.'],
+];
+$cur = $meta[$page] ?? ['LEA Web Creation', 'Sites modernes et rapides.'];
+?>
+<title><?= htmlspecialchars($cur[0]) ?></title>
+<meta name="description" content="<?= htmlspecialchars($cur[1]) ?>">
 </head>
 <body>
+
 <header class="site-header">
   <div class="container">
     <a href="?page=home" class="logo">
   <a href="?page=home" class="logo">
-  <img src="assets/logo.png" alt="LEA Web Creation" class="logo-img">
+  <img src="assets/logo.png" alt="LEA Web Creation" class="logo-img" loading="lazy">
   <span class="logo-text">LEA WEB CREATION</span></a>
     <nav>
       <a href="?page=services">Services</a>
@@ -151,7 +179,7 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
     <div class="px-layer px-l2"></div>
     <!-- Calque 3 (rapide) -->
     <div class="px-layer px-l3"></div>
-    <img src="assets/images/hero.png" alt="Présentation LEA Web Creation" class="hero-img"></div>
+    <img src="assets/images/hero.png" alt="Présentation LEA Web Creation" class="hero-img" loading="lazy"></div>
   </section>
 
   <section class="section">
@@ -164,7 +192,7 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
         $icon = $iconMap[$i % count($iconMap)]; $i++;
       ?>
         <div class="card" data-reveal>
-        <img class="icon" src="assets/icons/<?= $icon ?>.svg" alt="" aria-hidden="true">
+        <img class="icon" src="assets/icons/<?= $icon ?>.svg" alt="" aria-hidden="true" loading="lazy">
         <h3><?= h($s['title']) ?></h3>
         <p><?= h($s['excerpt']) ?></p>
         <p class="muted">À partir de <?= h($s['price']) ?></p>
@@ -179,7 +207,7 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
       <?php foreach ($reviews as $r): ?>
         <div class="card" data-reveal>
   <div class="review-head">
-    <img class="avatar" src="assets/images/avatars/default.png" alt="Avatar">
+    <img class="avatar" src="assets/images/avatars/default.png" alt="Avatar" loading="lazy">
     <p class="muted">— <?= h($r['author']) ?> · <?= (int)$r['rating'] ?>/5</p>
   </div>
   <p>"<?= h($r['content']) ?>"</p>
@@ -199,7 +227,7 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
         $icon = $iconMap[$i % count($iconMap)]; $i++;
     ?>
       <div class="card" data-reveal>
-        <img class="icon" src="assets/icons/<?= $icon ?>.svg" alt="" aria-hidden="true">
+        <img class="icon" src="assets/icons/<?= $icon ?>.svg" alt="" aria-hidden="true" loading="lazy">
         <h3><?= h($s['title']) ?></h3>
         <p><?= h($s['excerpt']) ?></p>
         <p class="muted">À partir de <?= h($s['price']) ?></p>
@@ -262,14 +290,14 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
           <h2>Un site qui donne envie dès le premier regard.</h2>
           <p>Un thème épuré, des visuels larges, une mise en page fluide. Vous présentez l’essentiel, sans friction.</p>
         </div>
-        <div><img class="mock-xl-img" src="assets/images/product-1.png" alt="Exemple de site vitrine 1">
+        <div><img class="mock-xl-img" src="assets/images/product-1.png" alt="Exemple de site vitrine 1" loading="lazy">
 </div>
       </div>
     </section>
 
     <section class="panel alt" data-reveal>
       <div class="container">
-        <div><img class="mock-xl-img" src="assets/images/product-2.png" alt="Exemple de site vitrine 2">
+        <div><img class="mock-xl-img" src="assets/images/product-2.png" alt="Exemple de site vitrine 2" loading="lazy">
 </div>
         <div>
           <div class="kicker">Performance</div>
@@ -286,7 +314,7 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
           <h2>Construite proprement, pensée pour durer.</h2>
           <p>Des formulaires sécurisés, une base solide. Et quand vous grandirez, on ajoute les briques.</p>
         </div>
-        <div><img class="mock-xl-img" src="assets/images/product-3.png" alt="Exemple de site vitrine 3">
+        <div><img class="mock-xl-img" src="assets/images/product-3.png" alt="Exemple de site vitrine 3" loading="lazy">
 </div>
       </div>
     </section>
@@ -297,12 +325,12 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
   <div class="grid">
     <div class="card" data-reveal>
       <h3>Refonte d’un site vitrine</h3>
-      <img src="assets/images/portfolio-1.jpg" alt="Projet 1" class="service-thumb">
+      <img src="assets/images/portfolio-1.jpg" alt="Projet 1" class="service-thumb" loading="lazy">
       <p>Avant / Après : un site modernisé, responsive et rapide.</p>
     </div>
     <div class="card" data-reveal>
       <h3>Boutique en ligne</h3>
-      <img src="assets/images/portfolio-2.jpg" alt="Projet 2" class="service-thumb">
+      <img src="assets/images/portfolio-2.jpg" alt="Projet 2" class="service-thumb" loading="lazy">
       <p>Une e-boutique simple et efficace pour une petite marque.</p>
     </div>
   </div>
@@ -336,8 +364,8 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
 
 <?php elseif ($page === 'about'): ?>
   <h1>À propos</h1>
-  <img src="assets/images/about.png" alt="Portrait" class="contact-illu">
-  <img src="assets/images/about.png" alt="Portrait" class="contact-illu">
+  <img src="assets/images/about.png" alt="Portrait" class="contact-illu" loading="lazy">
+  <img src="assets/images/about.png" alt="Portrait" class="contact-illu" loading="lazy">
   <p>Je suis passionné(e) par le web design et le développement.  
      Avec LEA Web Creation, ma mission est de créer des sites modernes, rapides et accessibles à toutes les entreprises.  
      Mon objectif : transformer vos idées en expériences numériques élégantes.</p>

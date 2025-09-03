@@ -112,3 +112,11 @@ window.addEventListener('scroll', () => {
   // premier rendu
   onScroll();
 })();
+
+document.querySelector('.burger')?.addEventListener('click', e=>{
+  const btn = e.currentTarget;
+  const list = document.getElementById('mainnav');
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!open));
+  list.classList.toggle('is-open', !open);
+});

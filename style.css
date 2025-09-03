@@ -330,3 +330,10 @@ textarea{ resize:vertical }
 @media (prefers-reduced-motion: reduce) {
   .px-layer { transition: none !important; transform: none !important; }
 }
+
+.burger{display:none}
+@media (max-width: 768px){
+  .burger{display:inline-block}
+  .nav-list{display:none}
+  .nav-list.is-open{display:block}
+}
