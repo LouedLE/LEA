@@ -124,3 +124,39 @@ document.addEventListener('DOMContentLoaded', () => {
     links.classList.toggle('is-open', !open);
   });
 });
+
+// FAQ: recherche + filtres + accordéon
+document.addEventListener('DOMContentLoaded', () => {
+  const search = document.getElementById('faq-search');
+  const chips = document.querySelectorAll('.chip');
+  const items = document.querySelectorAll('#faq-accordion .acc');
+  let filter = 'all';
+
+  function applyFilters(){
+    const q = (search?.value || '').toLowerCase();
+    items.forEach(el => {
+      const cat = el.dataset.cat || '';
+      const text = el.textContent.toLowerCase();
+      const okCat = (filter === 'all' || cat === filter);
+      const okText = !q || text.includes(q);
+      el.style.display = (okCat && okText) ? '' : 'none';
+    });
+  }
+
+  chips.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      filter = btn.dataset.filter || 'all';
+      applyFilters();
+    });
+  });
+  search?.addEventListener('input', applyFilters);
+
+  // Accessibilité: focus le contenu quand on ouvre un <details>
+  document.querySelectorAll('#faq-accordion details').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open) d.querySelector('.acc-panel')?.setAttribute('tabindex', '-1'), d.querySelector('.acc-panel')?.focus();
+    });
+  });
+});

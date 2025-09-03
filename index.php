@@ -148,10 +148,8 @@ $cur = $meta[$page] ?? ['LEA Web Creation', 'Sites modernes et rapides.'];
   <img src="assets/logo.png" alt="LEA Web Creation" class="logo-img" loading="lazy">
   <span class="logo-text">LEA WEB CREATION</span></a>
 
-
 <nav class="nav">
   <button class="burger" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Ouvrir le menu">☰</button>
-
   <div id="nav-links" class="nav-links">
     <a href="?page=services">Services</a>
     <a href="?page=product">Produit</a>
@@ -161,14 +159,9 @@ $cur = $meta[$page] ?? ['LEA Web Creation', 'Sites modernes et rapides.'];
     <a href="?page=faq">FAQ</a>
     <a href="?page=about">À propos</a>
     <!-- ton bouton thème si tu l’as -->
-    <button class="theme-toggle" type="button" aria-label="Changer de thème"><span class="sun">☀️</span><span class="moon">🌙</span></button>
+    <button class="theme-toggle" type="button" aria-label="Changer de thème"><span class="sun">jour ☀️</span><span class="moon">nuit 🌙</span></button>
   </div>
 </nav>
-
-
-
-
-
 
   </div>
 </header>
@@ -346,30 +339,101 @@ $cur = $meta[$page] ?? ['LEA Web Creation', 'Sites modernes et rapides.'];
 
 <?php elseif ($page === 'faq'): ?>
   <h1>Foire aux questions</h1>
-  <div class="card" data-reveal>
-    <h3>Quels sont vos délais ?</h3>
-    <p>Un site vitrine simple est livré en 2 à 3 semaines.</p>
-  </div>
-  <div class="card" data-reveal>
-    <h3>Quels sont vos tarifs ?</h3>
-    <p>Nos offres démarrent à 499€, adaptées selon vos besoins.</p>
-  </div>
-  <div class="card" data-reveal>
-    <h3>Proposez-vous un suivi ?</h3>
-    <p>Oui, nous proposons un accompagnement et une maintenance annuelle.</p>
 
-    <h2 class="section">Poser une question</h2>
-<form method="post" class="form" data-reveal>
-  <label>Email
-    <input type="email" name="email" required>
-  </label>
-  <label>Votre question
-    <textarea name="question" rows="5" required></textarea>
-  </label>
-  <button class="btn">Envoyer</button>
-</form>
-
+  <!-- Barre de recherche + filtres -->
+  <div class="faq-intro">
+    <input id="faq-search" type="search" placeholder="Rechercher une question…" aria-label="Rechercher dans la FAQ">
+    <div class="faq-tags" role="tablist" aria-label="Catégories de questions">
+      <button class="chip is-active" type="button" data-filter="all">Toutes</button>
+      <button class="chip" type="button" data-filter="delais">Délais</button>
+      <button class="chip" type="button" data-filter="tarifs">Tarifs</button>
+      <button class="chip" type="button" data-filter="technique">Technique</button>
+      <button class="chip" type="button" data-filter="support">Support</button>
+    </div>
   </div>
+
+  <!-- Accordéon -->
+  <div class="accordion" id="faq-accordion">
+    <details class="acc" data-cat="delais" open>
+      <summary><h3>Quels sont vos délais ?</h3></summary>
+      <div class="acc-panel"><p>Un site vitrine simple est livré en 2 à 3 semaines (brief validé, contenus fournis).</p></div>
+    </details>
+
+    <details class="acc" data-cat="tarifs">
+      <summary><h3>Quels sont vos tarifs ?</h3></summary>
+      <div class="acc-panel"><p>Nos offres démarrent à 499€ pour l’essentiel. Un devis est réalisé selon vos besoins (pages, design, fonctionnalités).</p></div>
+    </details>
+
+    <details class="acc" data-cat="support">
+      <summary><h3>Proposez-vous un suivi ou une maintenance ?</h3></summary>
+      <div class="acc-panel"><p>Oui, contrat de maintenance (mises à jour, sauvegardes, support) et heures de retouches à la demande.</p></div>
+    </details>
+
+    <details class="acc" data-cat="technique">
+      <summary><h3>Mon site sera-t-il rapide et bien référencé ?</h3></summary>
+      <div class="acc-panel"><p>On optimise les images (WebP, lazy-loading), le code et les balises SEO (title, description, Open Graph, schema.org).</p></div>
+    </details>
+
+    <details class="acc" data-cat="technique">
+      <summary><h3>Le site est-il responsive (mobile) ?</h3></summary>
+      <div class="acc-panel"><p>Oui, design responsive et tests sur plusieurs tailles d’écran.</p></div>
+    </details>
+  </div>
+
+  <!-- CTA poser une question -->
+  <div class="card cta-question">
+    <h2 class="section">Vous n’avez pas trouvé ?</h2>
+    <p class="muted">Posez votre question, nous répondons sous 24–48h.</p>
+    <form method="post" class="form" data-reveal id="faq-form">
+      <!-- Honeypot anti-spam -->
+      <div class="hp"><label>Ne pas remplir<input type="text" name="hp_field" tabindex="-1" autocomplete="off"></label></div>
+
+      <label>Email
+        <input type="email" name="email" autocomplete="email" inputmode="email" required>
+      </label>
+      <label>Votre question
+        <textarea name="question" rows="5" required></textarea>
+      </label>
+      <button class="btn">Envoyer</button>
+    </form>
+  </div>
+
+  <!-- SEO: données structurées FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quels sont vos délais ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Un site vitrine simple est livré en 2 à 3 semaines (brief validé, contenus fournis)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Quels sont vos tarifs ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nos offres démarrent à 499€ pour l’essentiel. Un devis est réalisé selon vos besoins." }
+      },
+      {
+        "@type": "Question",
+        "name": "Proposez-vous un suivi ou une maintenance ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Oui, contrat de maintenance (mises à jour, sauvegardes, support) et retouches à la demande." }
+      },
+      {
+        "@type": "Question",
+        "name": "Mon site sera-t-il rapide et bien référencé ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Optimisations images, code et balises SEO (title, description, Open Graph, schema.org)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Le site est-il responsive (mobile) ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Oui, design responsive et tests multi-écrans." }
+      }
+    ]
+  }
+  </script>
+
+
 
 <?php elseif ($page === 'about'): ?>
   <h1>À propos</h1>

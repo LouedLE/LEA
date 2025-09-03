@@ -384,3 +384,38 @@ input, select, textarea { font-size: 16px; } /* évite le zoom iOS */
 /* ==== Images responsives (balises) ==== */
 /* Si tu ajoutes sizes/srcset côté HTML, ce style aide juste à l’affichage */
 .hero-img, .mock-xl-img { width: 100%; height: auto; display: block; }
+
+/* FAQ: recherche + filtres */
+.faq-intro { display: grid; gap: 12px; margin: 10px 0 16px; }
+#faq-search {
+  width: 100%; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 94%, transparent); color: var(--text);
+}
+.faq-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 94%, transparent); color: var(--text);
+  cursor: pointer; transition: background .2s ease, border-color .2s ease;
+}
+.chip.is-active { border-color: color-mix(in oklab, var(--accent) 50%, var(--line)); }
+
+/* Accordéon <details> */
+.accordion { display: grid; gap: 12px; }
+.acc {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 96%, transparent), color-mix(in oklab, var(--surface-2) 96%, transparent));
+  border: 1px solid var(--line); border-radius: 16px; padding: 0 14px;
+}
+.acc summary {
+  list-style: none; cursor: pointer; padding: 14px 6px; display: flex; align-items: center; gap: 10px;
+}
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary h3 { margin: 0; font-size: 18px; }
+.acc .acc-panel { padding: 0 6px 14px; color: var(--muted); }
+.acc[open] { border-color: color-mix(in oklab, var(--accent) 35%, var(--line)); }
+
+/* CTA poser question */
+.cta-question { margin-top: 18px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+@media (max-width: 768px){
+  #faq-search { font-size: 16px; }
+}
