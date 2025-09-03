@@ -113,10 +113,14 @@ window.addEventListener('scroll', () => {
   onScroll();
 })();
 
-document.querySelector('.burger')?.addEventListener('click', e=>{
-  const btn = e.currentTarget;
-  const list = document.getElementById('mainnav');
-  const open = btn.getAttribute('aria-expanded') === 'true';
-  btn.setAttribute('aria-expanded', String(!open));
-  list.classList.toggle('is-open', !open);
+// Menu burger mobile
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('.burger');
+  const links = document.getElementById('nav-links');
+  if (!btn || !links) return;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    links.classList.toggle('is-open', !open);
+  });
 });

@@ -331,9 +331,56 @@ textarea{ resize:vertical }
   .px-layer { transition: none !important; transform: none !important; }
 }
 
-.burger{display:none}
+/* ==== Base mobile-friendly ==== */
+:root { --tap: 44px; }                    /* taille cible tap iOS/Android */
+* { -webkit-tap-highlight-color: transparent; }
+img { max-width: 100%; height: auto; }    /* images fluides */
+a, button { min-height: var(--tap); }     /* touch targets confortables */
+input, select, textarea { font-size: 16px; } /* évite le zoom iOS */
+.container { padding-left: 16px; padding-right: 16px; }
+
+/* Safe-area (iPhone notch) */
+.site-header { padding-top: env(safe-area-inset-top); }
+
+/* Grille: 1 colonne sur mobile */
 @media (max-width: 768px){
-  .burger{display:inline-block}
-  .nav-list{display:none}
-  .nav-list.is-open{display:block}
+  .grid { grid-template-columns: 1fr; gap: 14px; }
+  .hero { padding: 56px 0 24px; }
+  .hero h1 { font-size: clamp(24px, 7vw, 32px); }
+  .section h2 { font-size: clamp(18px, 5.5vw, 24px); }
+  .logo-img { height: 32px; }
 }
+
+/* ==== Navigation responsive ==== */
+.nav { display: flex; align-items: center; gap: 12px; }
+.burger {
+  display: none; border: 1px solid var(--line); background: var(--surface);
+  color: var(--text); border-radius: 10px; padding: 8px 12px; font-size: 18px;
+}
+.nav-links { display: flex; align-items: center; gap: 12px; }
+
+@media (max-width: 768px){
+  .burger { display: inline-block; }
+  .nav { width: 100%; justify-content: space-between; }
+  .nav-links {
+    position: absolute; left: 0; right: 0; top: calc(100% + 1px);
+    display: none; flex-direction: column; gap: 0;
+    background: color-mix(in oklab, var(--bg-2) 92%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-links.is-open { display: flex; }
+  .nav-links a, .nav-links .theme-toggle {
+    width: 100%; text-align: left; padding: 12px 16px; border-top: 1px solid var(--line);
+  }
+}
+
+/* ==== Cartes & boutons sur mobile ==== */
+@media (max-width: 768px){
+  .card { padding: 16px; border-radius: 16px; }
+  .service-thumb { border-radius: 12px; }
+  .btn { width: 100%; text-align: center; }
+}
+
+/* ==== Images responsives (balises) ==== */
+/* Si tu ajoutes sizes/srcset côté HTML, ce style aide juste à l’affichage */
+.hero-img, .mock-xl-img { width: 100%; height: auto; display: block; }

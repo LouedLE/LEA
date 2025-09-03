@@ -147,20 +147,29 @@ $cur = $meta[$page] ?? ['LEA Web Creation', 'Sites modernes et rapides.'];
   <a href="?page=home" class="logo">
   <img src="assets/logo.png" alt="LEA Web Creation" class="logo-img" loading="lazy">
   <span class="logo-text">LEA WEB CREATION</span></a>
-    <nav>
-      <a href="?page=services">Services</a>
-      <a href="?page=product">Produit</a>
-      <a href="?page=contact">Devis</a>
-      <a href="?page=reviews">Avis</a>
-      <a href="?page=portfolio">Réalisations</a>
-      <a href="?page=faq">FAQ</a>
-      <a href="?page=about">À propos</a>
-      <button class="theme-toggle" type="button" aria-label="Changer de thème">
-      <span class="sun">☀️</span>
-      <span class="moon">🌙</span>
-</button>
 
-    </nav>
+
+<nav class="nav">
+  <button class="burger" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Ouvrir le menu">☰</button>
+
+  <div id="nav-links" class="nav-links">
+    <a href="?page=services">Services</a>
+    <a href="?page=product">Produit</a>
+    <a href="?page=contact">Devis</a>
+    <a href="?page=reviews">Avis</a>
+    <a href="?page=portfolio">Réalisations</a>
+    <a href="?page=faq">FAQ</a>
+    <a href="?page=about">À propos</a>
+    <!-- ton bouton thème si tu l’as -->
+    <button class="theme-toggle" type="button" aria-label="Changer de thème"><span class="sun">☀️</span><span class="moon">🌙</span></button>
+  </div>
+</nav>
+
+
+
+
+
+
   </div>
 </header>
 
