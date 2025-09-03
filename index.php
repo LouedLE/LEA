@@ -166,7 +166,6 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
     <!-- Calque 3 (rapide) -->
     <div class="px-layer px-l3"></div>
     <img src="assets/images/hero.png" alt="Présentation LEA Web Creation" class="hero-img"></div>
-    <a class="btn" href="?page=contact" onclick="gtag('event','select_content',{content_type:'cta',item_id:'hero_devis'});">Demander un devis</a>
   </section>
 
   <section class="section">
@@ -236,9 +235,6 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
     </label>
     <button class="btn">Envoyer</button>
   </form>
-
-  <!-- dans index.php, après l'ouverture du <form> de contact -->
-<form method="post" class="form" data-reveal onsubmit="gtag('event','generate_lead',{event_category:'contact',event_label:'devis'});">
 
 <?php elseif ($page === 'reviews'): ?>
   <h1>Vos avis</h1>
