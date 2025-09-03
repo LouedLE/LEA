@@ -106,25 +106,6 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
   <link rel="stylesheet" href="style.css">
   <script defer src="app.js"></script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7W38J2B6RB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // Consentement par défaut (à adapter si tu ajoutes une bannière)
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'granted'
-  });
-
-  gtag('config', 'G-7W38J2B6RB', {
-    'anonymize_ip': true // utile côté RGPD
-  });
-</script>
-
-
 </head>
 <body>
 <header class="site-header">
@@ -350,6 +331,7 @@ $reviews  = db()->query("SELECT * FROM reviews ORDER BY created_at DESC LIMIT 20
 
 <?php elseif ($page === 'about'): ?>
   <h1>À propos</h1>
+  <img src="assets/images/about.png" alt="Portrait" class="contact-illu">
   <img src="assets/images/about.png" alt="Portrait" class="contact-illu">
   <p>Je suis passionné(e) par le web design et le développement.  
      Avec LEA Web Creation, ma mission est de créer des sites modernes, rapides et accessibles à toutes les entreprises.  
